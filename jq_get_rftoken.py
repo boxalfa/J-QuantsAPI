@@ -50,8 +50,8 @@ def func_get_rftoken(api_url, str_mail_address, str_password):
     data["mailaddress"] = str_mail_address
     data["password"] = str_password
     r_post_rftoken = requests.post(api_url, data=json.dumps(data))
-    dic_rftoken = json.loads(r_post_rftoken.text)  # 辞書型に変換
-    return dic_rftoken
+    
+    return r_post_rftoken
 
 
 
@@ -88,10 +88,14 @@ func_parse_parameter(sys.argv, str_fname_output)
 time_rftoken = datetime.datetime.now()
 
 # リフレッシュトークンを取得 （有効期限は1週間）
-dic_rftoken = func_get_rftoken(api_url, sys.argv[1], sys.argv[2])
-str_rftoken = dic_rftoken.get('refreshToken')    # ＩＤトークンのvalueを取得
-# リフレッシュトークンを取得できなかった場合
-if str_rftoken is None :
+r_post_rftoken = func_get_rftoken(api_url, sys.argv[1], sys.argv[2])
+dic_rftoken = json.loads(r_post_rftoken.text)  # 辞書型に変換
+
+if r_post_rftoken.status_code == 200 :
+    # 正常にリフレッシュトークンを取得
+    str_rftoken = dic_rftoken.get('refreshToken')    # ＩＤトークンのvalueを取得
+else :
+    # リフレッシュトークンを取得できなかった場合
     print('message :', dic_rftoken.get('message'))
     quit()  # 終了
 
