@@ -44,7 +44,6 @@ def func_parse_parameter(list_argv, str_fname_output):
 # 返値 : リフレッシュトークン
 # ---------------------------------------------
 def func_get_rftoken(api_url, str_mail_address, str_password):
-    
     # リフレッシュトークン取得
     data={}
     data["mailaddress"] = str_mail_address
