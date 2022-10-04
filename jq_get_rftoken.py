@@ -92,7 +92,7 @@ dic_rftoken = json.loads(r_post_rftoken.text)  # 辞書型に変換
 
 if r_post_rftoken.status_code == 200 :
     # 正常にリフレッシュトークンを取得
-    str_rftoken = dic_rftoken.get('refreshToken')    # ＩＤトークンのvalueを取得
+    str_rftoken = dic_rftoken.get('refreshToken')    # リフレッシュトークンのvalueを取得
 else :
     # リフレッシュトークンを取得できなかった場合
     print('message :', dic_rftoken.get('message'))
